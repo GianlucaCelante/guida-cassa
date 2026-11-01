@@ -1,0 +1,872 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
+<meta charset="utf-8">
+<title>Guida alla Cassa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap">
+<style>
+/* Brand cèlan: Anton per i titoli (maiuscolo), Archivo per il testo; grigio caldo, inchiostro, rosso cèlan.
+   Layout: home a colonna unica che scorre; voce = schermo intero 100dvh (titolo, testo del passo, schermata che si adatta, pulsanti fissi in basso). */
+:root{
+  --bg:#E9E9E9; --bg-2:#E2DFDA; --surface:#FCFBFA; --surface-2:#F1EFEC; --ink:#111110; --muted:#5A5853;
+  --line:rgba(17,17,16,.14); --line-strong:rgba(17,17,16,.32);
+  --accent:#F0563C; --accent-strong:#CC3D20; --on-accent:#FFFFFF; --accent-text:#B03621; --accent-soft:rgba(240,86,60,.12);
+  --mark-bg:#F8C800; --mark-ink:#111110; --focus:#111110; --frame:rgba(17,17,16,.18);
+  --shadow:0 1px 0 rgba(17,17,16,.04),0 18px 40px -24px rgba(17,17,16,.28);
+  --font-ui:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-display:"Anton","Archivo",Impact,"Arial Narrow",sans-serif;
+  --r-card:22px; --r-pill:999px; --r-ui:10px; --ease:cubic-bezier(.32,.72,0,1); --ease-reveal:cubic-bezier(.16,1,.3,1);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141312; --bg-2:#1B1917; --surface:#1F1D1B; --surface-2:#292624; --ink:#FCFBFA; --muted:#BAB5AD;
+  --line:rgba(252,251,250,.16); --line-strong:rgba(252,251,250,.4);
+  --accent:#F0563C; --accent-strong:#CC3D20; --on-accent:#FFFFFF; --accent-text:#FF957E; --accent-soft:rgba(240,86,60,.2);
+  --mark-bg:#F8C800; --mark-ink:#111110; --focus:#FCFBFA; --frame:rgba(252,251,250,.2);
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.7); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141312; --bg-2:#1B1917; --surface:#1F1D1B; --surface-2:#292624; --ink:#FCFBFA; --muted:#BAB5AD;
+  --line:rgba(252,251,250,.16); --line-strong:rgba(252,251,250,.4);
+  --accent:#F0563C; --accent-strong:#CC3D20; --on-accent:#FFFFFF; --accent-text:#FF957E; --accent-soft:rgba(240,86,60,.2);
+  --mark-bg:#F8C800; --mark-ink:#111110; --focus:#FCFBFA; --frame:rgba(252,251,250,.2);
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 18px 40px -24px rgba(0,0,0,.7); color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-ui);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+.wrap{max-width:1100px;margin:0 auto;padding-block:18px 64px}
+h1,h2,h3{margin:0;text-wrap:balance}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;border-radius:8px}
+#h:focus{outline:none}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+svg{display:block}
+mark{background:var(--mark-bg);color:var(--mark-ink);border-radius:4px;padding:0 2px}
+.display{font-family:var(--font-display);font-weight:400;text-transform:uppercase;letter-spacing:-.01em;line-height:.98}
+
+/* testata */
+.top{display:flex;flex-direction:column;gap:18px;padding-block:6px 10px}
+.brandbar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.wordmark{font-family:var(--font-display);font-size:28px;line-height:1;letter-spacing:.01em;color:var(--ink);display:flex;align-items:center;gap:10px}
+.wordmark i{display:block;width:12px;height:12px;border-radius:50%;background:var(--accent)}
+.tag{font-weight:600;font-size:16px;color:var(--muted)}
+.hero-title{font-size:clamp(46px,9vw,96px)}
+.hero-title span{color:var(--accent-strong)}
+.search{position:relative}
+.search input{width:100%;min-height:72px;border-radius:var(--r-pill);border:1.5px solid var(--line-strong);background:var(--surface);
+  padding:14px 24px 14px 62px;font-size:21px;font-weight:500;-webkit-appearance:none;appearance:none;transition:border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.search input::-webkit-search-cancel-button{display:none}
+.search input::placeholder{color:var(--muted);opacity:1}
+.search input:focus{outline:none;border-color:var(--accent-strong);box-shadow:0 0 0 4px var(--accent-soft)}
+.search .ico{position:absolute;left:22px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search.has-text input{padding-right:150px}
+.search .clear[hidden]{display:none}
+.search .clear{position:absolute;right:10px;top:50%;transform:translateY(-50%);height:52px;border:1.5px solid var(--line-strong);border-radius:var(--r-pill);background:transparent;cursor:pointer;color:var(--ink);display:flex;align-items:center;gap:6px;padding:0 16px 0 12px;font-size:17px;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:46px;padding:8px 18px;border-radius:var(--r-pill);border:1.5px solid var(--line-strong);background:transparent;cursor:pointer;font-weight:600;font-size:17px;transition:background-color .3s var(--ease),color .3s var(--ease)}
+.chip:hover{background:var(--ink);color:var(--bg)}
+
+/* sezioni e schede */
+.section{margin-block:40px}
+.section-head{display:flex;align-items:baseline;gap:14px;margin-bottom:16px;border-top:1px solid var(--line);padding-top:16px}
+.section-head h2{font-size:clamp(30px,4.4vw,48px)}
+.section-head .count{font-size:16px;color:var(--muted);font-weight:600}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.card{display:flex;align-items:center;gap:14px;min-height:88px;padding:14px 16px;border-radius:var(--r-card);border:1px solid var(--line);
+  background:var(--surface);text-align:left;cursor:pointer;width:100%;box-shadow:var(--shadow);transition:transform .45s var(--ease),border-color .3s var(--ease)}
+.card:hover{transform:translateY(-2px);border-color:var(--accent)}
+.card:active{transform:scale(.985)}
+.card .cico{width:48px;height:48px;border-radius:50%;background:var(--accent-soft);display:grid;place-items:center;flex:none;color:var(--accent-text)}
+.card .ct{display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.card .q{font-weight:600;font-size:19px;line-height:1.3;overflow-wrap:break-word}
+.card .snip{font-size:17px;color:var(--muted);line-height:1.4;overflow-wrap:break-word}
+.card .go{flex:none;color:var(--accent-strong)}
+.empty{padding:22px;border-radius:var(--r-card);background:var(--surface);border:1.5px dashed var(--line-strong);display:flex;flex-direction:column;gap:14px}
+.empty p{margin:0}
+.ui{font-weight:700;background:var(--accent-soft);color:var(--accent-text);border-radius:6px;padding:0 5px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+
+/* vista di una voce: tutto in uno schermo */
+body.guide{overflow:hidden}
+body.guide .wrap{height:100vh;height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));padding-block:12px calc(var(--navh,76px) + 10px);display:flex;flex-direction:column}
+body.guide #app{flex:1;min-height:0;display:flex;flex-direction:column}
+.gview{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px}
+.ghead{flex:none;display:flex;flex-direction:column;gap:8px}
+.ghead h1{font-size:clamp(22px,3.4vw,36px)}
+.back{align-self:flex-start;min-height:44px;display:inline-flex;align-items:center;gap:6px;padding:0 16px 0 10px;border-radius:var(--r-pill);border:1.5px solid var(--line-strong);background:transparent;cursor:pointer;font-weight:600;font-size:16px}
+.step{flex:1;min-height:0;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;box-shadow:var(--shadow)}
+.step .body{flex:none;max-height:40%;overflow:auto;padding:14px 18px;border-bottom:1px solid var(--line)}
+.step.noimg .body{flex:1;max-height:none;border-bottom:0}
+.step .txt{font-size:clamp(18px,2.2vw,22px);line-height:1.45;font-weight:600;margin:0;overflow-wrap:break-word}
+.step .fig{flex:1;min-height:0;padding:10px;background:var(--surface-2);container-type:size;display:flex;align-items:center;justify-content:center}
+
+/* schermata reale: a tutta larghezza da 560px in su, ritaglio ingrandito sul telefono; si adatta allo spazio (contain) */
+.shot{position:relative;width:100%;max-width:100%;flex:none;border-radius:12px;overflow:hidden;border:1px solid var(--frame);background:#fff;container-type:inline-size;--zz:1}
+.shot .stage{position:absolute;inset:0}
+.shot .stage>img{display:block;width:100%;height:100%;object-fit:cover;max-width:none}
+.shot .veil{position:absolute;inset:0;background:rgba(20,19,18,.32);-webkit-backdrop-filter:blur(1.2px);backdrop-filter:blur(1.2px)}
+@supports (width:1cqw){.shot .veil{-webkit-backdrop-filter:blur(calc(.2cqw * var(--zz)));backdrop-filter:blur(calc(.2cqw * var(--zz)))}}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.shot .veil{background:rgba(20,19,18,.5)}}
+.shot .marks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.shot .lens{position:absolute;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.6)}
+.shot .lens img{position:absolute;max-width:none;display:block}
+
+/* pulsanti in basso */
+.navbar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:var(--surface);border-top:1px solid var(--line);
+  padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.navbar .in{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px}
+.navbar .grp{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.nbtn{min-height:46px;border-radius:var(--r-pill);font-weight:600;font-size:17px;line-height:1.2;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:6px 18px;
+  transition:transform .4s var(--ease),opacity .3s var(--ease);text-align:left}
+.nbtn:active{transform:scale(.98)}
+.nbtn.out{background:transparent;border:1.5px solid var(--line-strong)}
+.nbtn.main{background:var(--accent-strong);color:var(--on-accent);border:1.5px solid var(--accent-strong);padding-right:8px}
+.nbtn.main .ic{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;flex:none;transition:transform .4s var(--ease)}
+.nbtn.main:hover .ic{transform:translateX(2px)}
+.nbtn .t1{display:block}
+.nbtn .t2{display:block;font-size:16px;font-weight:500;opacity:.9;max-width:40ch;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.nbtn:disabled{opacity:.4;cursor:default}
+
+/* animazioni */
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 1.6s var(--ease-reveal) infinite}
+@keyframes pulse{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.4)}}
+.fade{animation:fade .4s var(--ease-reveal)}
+@keyframes fade{from{opacity:.4;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.pulse{animation:none;opacity:0}.fade{animation:none}.card,.nbtn,.chip{transition:none}}
+
+@media (max-width:560px){
+  .grid{grid-template-columns:1fr}
+  .step .fig{padding:6px}
+  .step .body{padding:12px 14px}
+  .search input{font-size:19px;padding-left:54px;padding-right:18px}
+  .search.has-text input{padding-right:136px}
+  .search .ico{left:18px}
+  .navbar .in{gap:8px}
+  .navbar .grp{gap:8px}
+  .navbar .in.last .main{flex:1 1 100%;justify-content:space-between}
+}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-key" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8M16 7l3 3M14 9l2 2"/></g></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M16 5a3 3 0 010 6M18 14c2 .8 3 3 3 6"/></g></symbol>
+    <symbol id="i-layout" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M17 4v16"/></g></symbol>
+    <symbol id="i-expand" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></g></symbol>
+    <symbol id="i-plate" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/></g></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9h18M6 9v10M18 9v10M9 5h6"/></g></symbol>
+    <symbol id="i-bag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M5 8h14l-1 12H6z"/><path d="M9 8a3 3 0 016 0"/></g></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20h4L19 9l-4-4L4 16z"/></g></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l18-8-7 18-3-7z"/></g></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></g></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="5" width="18" height="5" rx="1"/><path d="M5 10v9h14v-9M10 14h4"/></g></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="4" y="9" width="16" height="11" rx="1"/><path d="M3 9h18M12 9v11M12 9c-2-4-6-4-6-1s6 1 6 1c2-4 6-4 6-1s-6 1-6 1"/></g></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/></g></symbol>
+    <symbol id="i-split" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M12 5v14" stroke-dasharray="2 2.5"/></g></symbol>
+    <symbol id="i-receipt" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2z"/><path d="M9 8h6M9 12h6"/></g></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></g></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/></g></symbol>
+    <symbol id="i-ban" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M6 6l12 12"/></g></symbol>
+    <symbol id="i-count" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 7h14M5 12h14M5 17h9"/></g></symbol>
+    <symbol id="i-folder" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 6h7l2 2h9v11H3z"/></g></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></g></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></g></symbol>
+    <symbol id="i-drag" viewBox="0 0 24 24"><g fill="currentColor"><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></g></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V4H4v12h4"/></g></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14L4 9l5-5"/><path d="M4 9h11a5 5 0 010 10h-3"/></g></symbol>
+    <symbol id="i-print" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/></g></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></g></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></g></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></g></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></g></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></g></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></g></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></g></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></g></symbol>
+    <symbol id="i-chart" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20h16M7 17v-6M12 17V6M17 17v-9"/></g></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7.5 11l4.5 4.5 4.5-4.5M5 20h14"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+  <main id="app" tabindex="-1"></main>
+</div>
+<div class="navbar" id="navbar" hidden><div class="in" id="navin"></div></div>
+
+<script>
+(function(){
+"use strict";
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+/* Schermate vere della cassa (tablet 1180x820). Le coordinate dei riquadri vengono
+   dalla posizione reale degli elementi nella pagina (getBoundingClientRect). */
+const SHOTS={"accedere":{"1":{"f":"img/accedere-01.webp","b":[],"w":1180,"h":820},"2":{"f":"img/accedere-02.webp","b":[[598,401,160,162]],"w":1180,"h":820},"3":{"f":"img/accedere-03.webp","b":[[530,361,120,192]],"w":1180,"h":820},"4":{"f":"img/accedere-04.webp","b":[[610,505,40,48],[530,505,40,48]],"w":1180,"h":820},"5":{"f":"img/accedere-05.webp","b":[],"w":1180,"h":820}},"annullare-ordine":{"1":{"f":"img/annullare-ordine-01.webp","b":[[1060,708,112,44]],"w":1180,"h":820},"2":{"f":"img/annullare-ordine-02.webp","b":[[305,494,850,89]],"w":1180,"h":820},"3":{"f":"img/annullare-ordine-03.webp","b":[[635,668,190,44]],"w":1180,"h":820},"4":{"f":"img/annullare-ordine-04.webp","b":[[600,442,221,40]],"w":1180,"h":820}},"asporto":{"1":{"f":"img/asporto-01.webp","b":[[140,147,28,28]],"w":1180,"h":820},"2":{"f":"img/asporto-02.webp","b":[[36,189,228,24]],"w":1180,"h":820},"3":{"f":"img/asporto-03.webp","b":[[36,189,198,24]],"w":1180,"h":820},"4":{"f":"img/asporto-04.webp","b":[[140,147,28,28]],"w":1180,"h":820}},"cambiare-operatore":{"1":{"f":"img/cambiare-operatore-01.webp","b":[[1092,16,48,48]],"w":1180,"h":820},"2":{"f":"img/cambiare-operatore-02.webp","b":[[12,738,256,32]],"w":1180,"h":820},"3":{"f":"img/cambiare-operatore-03.webp","b":[[691,436,130,40]],"w":1180,"h":820},"4":{"f":"img/cambiare-operatore-04.webp","b":[[12,776,256,32]],"w":1180,"h":820}},"cambiare-prezzo":{"1":{"f":"img/cambiare-prezzo-01.webp","b":[[42,207,226,36]],"w":1180,"h":820},"2":{"f":"img/cambiare-prezzo-02.webp","b":[[539,94,151,55]],"w":1180,"h":820},"3":{"f":"img/cambiare-prezzo-03.webp","b":[[422,425,465,40]],"w":1180,"h":820},"4":{"f":"img/cambiare-prezzo-04.webp","b":[[753,68,40,16],[805,57,97,38]],"w":1180,"h":820}},"chiusura-giornata":{"1":{"f":"img/chiusura-giornata-01.webp","b":[[1092,16,48,48]],"w":1180,"h":820},"2":{"f":"img/chiusura-giornata-02.webp","b":[[12,353,256,44],[42,525,226,36]],"w":1180,"h":820},"3":{"f":"img/chiusura-giornata-03.webp","b":[[308,114,137,52],[304,369,852,299]],"w":1180,"h":820},"4":{"f":"img/chiusura-giornata-04.webp","b":[[605,692,251,40]],"w":1180,"h":820},"5":{"f":"img/chiusura-giornata-05.webp","b":[[641,566,181,40]],"w":1180,"h":820}},"correggere-ordine":{"1":{"f":"img/correggere-ordine-01.webp","b":[[184,319,24,24],[212,319,24,24]],"w":1180,"h":820},"2":{"f":"img/correggere-ordine-02.webp","b":[[240,319,24,24]],"w":1180,"h":820},"3":{"f":"img/correggere-ordine-03.webp","b":[[236,147,28,28]],"w":1180,"h":820},"4":{"f":"img/correggere-ordine-04.webp","b":[[725,436,96,40]],"w":1180,"h":820}},"correggere-pagamento":{"1":{"f":"img/correggere-pagamento-01.webp","b":[[305,494,850,89]],"w":1180,"h":820},"2":{"f":"img/correggere-pagamento-02.webp","b":[[391,668,231,44]],"w":1180,"h":820},"3":{"f":"img/correggere-pagamento-03.webp","b":[[375,360,430,56],[635,629,170,40]],"w":1180,"h":820}},"eliminare-piatto":{"2":{"f":"img/eliminare-piatto-02.webp","b":[[539,94,151,55]],"w":1180,"h":820},"3":{"f":"img/eliminare-piatto-03.webp","b":[[701,58,93,36]],"w":1180,"h":820},"4":{"f":"img/eliminare-piatto-04.webp","b":[[743,426,79,40]],"w":1180,"h":820}},"fattura":{"1":{"f":"img/fattura-01.webp","b":[[144,752,124,56]],"w":1180,"h":820},"2":{"f":"img/fattura-02.webp","b":[[370,338,440,64]],"w":1180,"h":820}},"modificatori":{"1":{"f":"img/modificatori-01.webp","b":[[42,287,226,36]],"w":1180,"h":820},"2":{"f":"img/modificatori-02.webp","b":[[958,46,174,40]],"w":1180,"h":820},"3":{"f":"img/modificatori-03.webp","b":[[358,163,449,40]],"w":1180,"h":820},"4":{"f":"img/modificatori-04.webp","b":[[358,343,216,40]],"w":1180,"h":820},"5":{"f":"img/modificatori-05.webp","b":[[358,645,220,32]],"w":1180,"h":820},"6":{"f":"img/modificatori-06.webp","b":[[690,722,140,40]],"w":1180,"h":820},"7":{"f":"img/modificatori-07.webp","b":[[313,579,191,60]],"w":1180,"h":820}},"nota-modifica":{"1":{"f":"img/nota-modifica-01.webp","b":[[64,301,200,17]],"w":1180,"h":820},"2":{"f":"img/nota-modifica-02.webp","b":[[315,270,271,51]],"w":1180,"h":820},"3":{"f":"img/nota-modifica-03.webp","b":[[315,359,550,40]],"w":1180,"h":820},"4":{"f":"img/nota-modifica-04.webp","b":[[655,614,210,40]],"w":1180,"h":820},"5":{"f":"img/nota-modifica-05.webp","b":[[8,297,264,72]],"w":1180,"h":820}},"nuova-categoria":{"1":{"f":"img/nuova-categoria-01.webp","b":[[42,207,226,36]],"w":1180,"h":820},"2":{"f":"img/nuova-categoria-02.webp","b":[[1100,362,56,96]],"w":1180,"h":820},"3":{"f":"img/nuova-categoria-03.webp","b":[[390,352,400,40]],"w":1180,"h":820},"4":{"f":"img/nuova-categoria-04.webp","b":[[658,533,140,40]],"w":1180,"h":820},"5":{"f":"img/nuova-categoria-05.webp","b":[[448,52,36,36]],"w":1180,"h":820},"6":{"f":"img/nuova-categoria-06.webp","b":[[322,52,36,36]],"w":1180,"h":820}},"nuovo-piatto":{"1":{"f":"img/nuovo-piatto-01.webp","b":[[1092,16,48,48]],"w":1180,"h":820},"2":{"f":"img/nuovo-piatto-02.webp","b":[[12,140,256,59],[42,207,226,36]],"w":1180,"h":820},"3":{"f":"img/nuovo-piatto-03.webp","b":[[644,459,77,47]],"w":1180,"h":820},"4":{"f":"img/nuovo-piatto-04.webp","b":[[422,207,465,40]],"w":1180,"h":820},"5":{"f":"img/nuovo-piatto-05.webp","b":[[422,389,465,40]],"w":1180,"h":820},"6":{"f":"img/nuovo-piatto-06.webp","b":[[422,397,165,25]],"w":1180,"h":820},"7":{"f":"img/nuovo-piatto-07.webp","b":[[770,722,140,40]],"w":1180,"h":820}},"omaggio":{"1":{"f":"img/omaggio-01.webp","b":[[172,147,28,28]],"w":1180,"h":820},"2":{"f":"img/omaggio-02.webp","b":[[761,405,44,24]],"w":1180,"h":820},"3":{"f":"img/omaggio-03.webp","b":[[594,509,211,48]],"w":1180,"h":820},"4":{"f":"img/omaggio-04.webp","b":[[8,297,264,74]],"w":1180,"h":820}},"ordine-categorie":{"1":{"f":"img/ordine-categorie-01.webp","b":[[1060,424,112,80]],"w":1180,"h":820},"2":{"f":"img/ordine-categorie-02.webp","b":[[1060,424,112,80],[1060,160,112,80]],"w":1180,"h":820}},"parcheggiare":{"1":{"f":"img/parcheggiare-01.webp","b":[[204,147,28,28]],"w":1180,"h":820},"2":{"f":"img/parcheggiare-02.webp","b":[[236,147,28,28]],"w":1180,"h":820},"3":{"f":"img/parcheggiare-03.webp","b":[[728,436,93,40]],"w":1180,"h":820}},"piatto-altra-categoria":{"1":{"f":"img/piatto-altra-categoria-01.webp","b":[[322,459,97,47]],"w":1180,"h":820},"2":{"f":"img/piatto-altra-categoria-02.webp","b":[[278,336,624,40],[324,406,504,20]],"w":1180,"h":820},"3":{"f":"img/piatto-altra-categoria-03.webp","b":[[696,525,214,40]],"w":1180,"h":820},"4":{"f":"img/piatto-altra-categoria-04.webp","b":[[748,473,147,55]],"w":1180,"h":820}},"piatto-esaurito":{"1":{"f":"img/piatto-esaurito-01.webp","b":[[42,207,226,36]],"w":1180,"h":820},"2":{"f":"img/piatto-esaurito-02.webp","b":[[539,94,151,55]],"w":1180,"h":820},"3":{"f":"img/piatto-esaurito-03.webp","b":[[422,610,44,24]],"w":1180,"h":820},"4":{"f":"img/piatto-esaurito-04.webp","b":[[304,115,226,44]],"w":1180,"h":820},"5":{"f":"img/piatto-esaurito-05.webp","b":[[422,433,44,24]],"w":1180,"h":820},"6":{"f":"img/piatto-esaurito-06.webp","b":[[805,57,97,38]],"w":1180,"h":820}},"piatto-non-si-aggiunge":{"1":{"f":"img/piatto-non-si-aggiunge-01.webp","b":[[304,115,226,44]],"w":1180,"h":820},"2":{"f":"img/piatto-non-si-aggiunge-02.webp","b":[[304,115,226,44]],"w":1180,"h":820}},"porzioni":{"1":{"f":"img/porzioni-01.webp","b":[[539,94,151,55]],"w":1180,"h":820},"2":{"f":"img/porzioni-02.webp","b":[[422,553,183,25]],"w":1180,"h":820},"3":{"f":"img/porzioni-03.webp","b":[[422,602,465,40]],"w":1180,"h":820},"4":{"f":"img/porzioni-04.webp","b":[[780,425,107,40]],"w":1180,"h":820},"5":{"f":"img/porzioni-05.webp","b":[[386,158,35,28]],"w":1180,"h":820}},"prendere-ordine":{"1":{"f":"img/prendere-ordine-01.webp","b":[[1060,248,112,80]],"w":1180,"h":820},"2":{"f":"img/prendere-ordine-02.webp","b":[[302,22,129,178]],"w":1180,"h":820},"3":{"f":"img/prendere-ordine-03.webp","b":[[485,26,47,55]],"w":1180,"h":820},"4":{"f":"img/prendere-ordine-04.webp","b":[[705,463,52,40]],"w":1180,"h":820},"5":{"f":"img/prendere-ordine-05.webp","b":[[0,289,280,411]],"w":1180,"h":820},"6":{"f":"img/prendere-ordine-06.webp","b":[[978,141,44,52]],"w":1180,"h":820}},"ristampare":{"1":{"f":"img/ristampare-01.webp","b":[[1060,752,112,44]],"w":1180,"h":820},"2":{"f":"img/ristampare-02.webp","b":[[358,335,449,63]],"w":1180,"h":820},"3":{"f":"img/ristampare-03.webp","b":[[358,638,449,63],[358,717,449,63],[358,796,449,63]],"w":1180,"h":820},"4":{"f":"img/ristampare-04.webp","b":[[701,722,129,40]],"w":1180,"h":820}},"schermata":{"1":{"f":"img/schermata-01.webp","b":[[0,0,280,820]],"w":1180,"h":820},"2":{"f":"img/schermata-02.webp","b":[[280,0,772,820]],"w":1180,"h":820},"3":{"f":"img/schermata-03.webp","b":[[1060,160,112,80]],"w":1180,"h":820},"4":{"f":"img/schermata-04.webp","b":[[1060,708,112,44],[1060,752,112,44]],"w":1180,"h":820},"5":{"f":"img/schermata-05.webp","b":[[1092,16,48,48]],"w":1180,"h":820},"6":{"f":"img/schermata-06.webp","b":[[12,752,124,56],[144,752,124,56]],"w":1180,"h":820}},"schermo-intero":{"1":{"f":"img/schermo-intero-01.webp","b":[[1092,80,48,48]],"w":1180,"h":820},"2":{"f":"img/schermo-intero-02.webp","b":[[1092,80,48,48]],"w":1180,"h":820}},"tavolo-coperti":{"1":{"f":"img/tavolo-coperti-01.webp","b":[[86,227,125,24]],"w":1180,"h":820},"2":{"f":"img/tavolo-coperti-02.webp","b":[[75,504,511,51]],"w":1180,"h":820},"3":{"f":"img/tavolo-coperti-03.webp","b":[[16,257,158,24]],"w":1180,"h":820},"4":{"f":"img/tavolo-coperti-04.webp","b":[[124,227,24,24]],"w":1180,"h":820}},"incassare-banco":{"1":{"f":"img/incassare-banco-01.webp","b":[[16,227,131,24],[36,189,198,24]],"w":1180,"h":820},"2":{"f":"img/incassare-banco-02.webp","b":[[12,752,124,56]],"w":1180,"h":820},"3":{"f":"img/incassare-banco-03.webp","b":[[370,396,440,80],[370,492,440,80]],"w":1180,"h":820},"4":{"f":"img/incassare-banco-04.webp","b":[[370,308,440,120]],"w":1180,"h":820},"5":{"f":"img/incassare-banco-05.webp","b":[[350,528,480,132]],"w":1180,"h":820},"6":{"f":"img/incassare-banco-06.webp","b":[[366,677,448,56]],"w":1180,"h":820}},"manca-tavolo":{"1":{"f":"img/manca-tavolo-01.webp","b":[[86,227,125,24],[36,189,228,24]],"w":1180,"h":820},"2":{"f":"img/manca-tavolo-02.webp","b":[[86,227,125,24]],"w":1180,"h":820},"3":{"f":"img/manca-tavolo-03.webp","b":[[75,436,511,51]],"w":1180,"h":820},"4":{"f":"img/manca-tavolo-04.webp","b":[[36,189,198,24]],"w":1180,"h":820},"5":{"f":"img/manca-tavolo-05.webp","b":[[12,752,124,56]],"w":1180,"h":820}},"dividere-banco":{"1":{"f":"img/dividere-banco-01.webp","b":[[140,147,28,28]],"w":1180,"h":820},"2":{"f":"img/dividere-banco-02.webp","b":[[144,752,124,56]],"w":1180,"h":820},"3":{"f":"img/dividere-banco-03.webp","b":[[370,262,440,64]],"w":1180,"h":820},"4":{"f":"img/dividere-banco-04.webp","b":[[379,246,44,44],[379,343,44,44]],"w":1180,"h":820},"5":{"f":"img/dividere-banco-05.webp","b":[[366,602,433,80],[366,694,433,80]],"w":1180,"h":820},"6":{"f":"img/dividere-banco-06.webp","b":[[366,198,448,16]],"w":1180,"h":820}}};
+/* Quale schermata usa ogni passo: di norma il passo N usa la schermata N.
+   0 = solo testo; {n, b:[...]} = solo alcuni riquadri; {g, n} = schermata di un'altra voce. */
+Object.assign(SHOTS,{"stat-schede":{"1":{"f":"img/stat-schede-01.webp","b":[[16,545,223,44]],"w":1180,"h":820},"2":{"f":"img/stat-schede-02.webp","b":[[288,135,335,42]],"w":1180,"h":820},"3":{"f":"img/stat-schede-03.webp","b":[[549,139,82,34]],"w":1180,"h":820}},"stat-periodo":{"1":{"f":"img/stat-periodo-01.webp","b":[[480,161,67,27]],"w":1180,"h":820},"2":{"f":"img/stat-periodo-02.webp","b":[[480,161,68,27],[311,241,107,27]],"w":1180,"h":820},"3":{"f":"img/stat-periodo-03.webp","b":[[307,324,187,109],[512,324,187,109]],"w":1180,"h":820},"4":{"f":"img/stat-periodo-04.webp","b":[[307,441,392,18]],"w":1180,"h":820},"5":{"f":"img/stat-periodo-05.webp","b":[[1107,87,24,24]],"w":1180,"h":820},"6":{"f":"img/stat-periodo-06.webp","b":[[288,78,860,41]],"w":1180,"h":820}},"stat-confronto":{"1":{"f":"img/stat-confronto-01.webp","b":[[849,241,102,27]],"w":1180,"h":820},"2":{"f":"img/stat-confronto-02.webp","b":[[736,353,236,109]],"w":1180,"h":820},"3":{"f":"img/stat-confronto-03.webp","b":[[288,95,860,384]],"w":1180,"h":820},"4":{"f":"img/stat-confronto-04.webp","b":[[954,241,125,27]],"w":1180,"h":820},"5":{"f":"img/stat-confronto-05.webp","b":[[953,241,128,27]],"w":1180,"h":820}},"stat-panoramica":{"1":{"f":"img/stat-panoramica-01.webp","b":[[288,70,860,310]],"w":1180,"h":820},"2":{"f":"img/stat-panoramica-02.webp","b":[[1011,335,118,33]],"w":1180,"h":820},"3":{"f":"img/stat-panoramica-03.webp","b":[[288,70,860,371]],"w":1180,"h":820},"4":{"f":"img/stat-panoramica-04.webp","b":[[288,70,860,132]],"w":1180,"h":820},"5":{"f":"img/stat-panoramica-05.webp","b":[[288,70,860,414]],"w":1180,"h":820},"6":{"f":"img/stat-panoramica-06.webp","b":[[288,442,860,347]],"w":1180,"h":820}},"stat-vendite":{"1":{"f":"img/stat-vendite-01.webp","b":[[401,139,80,34]],"w":1180,"h":820},"2":{"f":"img/stat-vendite-02.webp","b":[[288,70,860,386]],"w":1180,"h":820},"3":{"f":"img/stat-vendite-03.webp","b":[[288,70,860,132]],"w":1180,"h":820},"4":{"f":"img/stat-vendite-04.webp","b":[[288,70,860,132]],"w":1180,"h":820},"5":{"f":"img/stat-vendite-05.webp","b":[[288,70,860,376]],"w":1180,"h":820}},"stat-per-orario":{"1":{"f":"img/stat-per-orario-01.webp","b":[[288,326,860,463]],"w":1180,"h":820},"2":{"f":"img/stat-per-orario-02.webp","b":[[319,468,821,46]],"w":1180,"h":820},"3":{"f":"img/stat-per-orario-03.webp","b":[[288,326,860,494]],"w":1180,"h":820},"4":{"f":"img/stat-per-orario-04.webp","b":[[393,378,300,37]],"w":1180,"h":820},"5":{"f":"img/stat-per-orario-05.webp","b":[[393,378,300,37],[394,423,298,31]],"w":1180,"h":820},"6":{"f":"img/stat-per-orario-06.webp","b":[[288,326,860,494]],"w":1180,"h":820}},"stat-menu":{"1":{"f":"img/stat-menu-01.webp","b":[[483,139,65,34]],"w":1180,"h":820},"2":{"f":"img/stat-menu-02.webp","b":[[288,193,860,507]],"w":1180,"h":820},"3":{"f":"img/stat-menu-03.webp","b":[[486,293,54,29]],"w":1180,"h":820},"4":{"f":"img/stat-menu-04.webp","b":[[288,193,860,364]],"w":1180,"h":820},"5":{"f":"img/stat-menu-05.webp","b":[[480,249,92,29]],"w":1180,"h":820},"6":{"f":"img/stat-menu-06.webp","b":[[288,193,860,507]],"w":1180,"h":820},"7":{"f":"img/stat-menu-07.webp","b":[[1011,656,118,33]],"w":1180,"h":820},"8":{"f":"img/stat-menu-08.webp","b":[[288,193,860,627]],"w":1180,"h":820},"9":{"f":"img/stat-menu-09.webp","b":[[288,616,860,172]],"w":1180,"h":820}},"stat-servizio":{"1":{"f":"img/stat-servizio-01.webp","b":[[550,139,81,34]],"w":1180,"h":820},"2":{"f":"img/stat-servizio-02.webp","b":[[289,194,170,39]],"w":1180,"h":820},"3":{"f":"img/stat-servizio-03.webp","b":[[288,60,860,296]],"w":1180,"h":820},"4":{"f":"img/stat-servizio-04.webp","b":[[288,60,860,651]],"w":1180,"h":820},"5":{"f":"img/stat-servizio-05.webp","b":[[350,198,64,31]],"w":1180,"h":820},"6":{"f":"img/stat-servizio-06.webp","b":[[288,250,860,143]],"w":1180,"h":820},"7":{"f":"img/stat-servizio-07.webp","b":[[417,198,47,31]],"w":1180,"h":820},"8":{"f":"img/stat-servizio-08.webp","b":[[288,250,860,143]],"w":1180,"h":820}},"stat-fiscale":{"1":{"f":"img/stat-fiscale-01.webp","b":[[633,139,74,34]],"w":1180,"h":820},"2":{"f":"img/stat-fiscale-02.webp","b":[[288,193,860,127]],"w":1180,"h":820},"3":{"f":"img/stat-fiscale-03.webp","b":[[288,336,860,376]],"w":1180,"h":820}},"stat-vista":{"1":{"f":"img/stat-vista-01.webp","b":[[1031,32,117,30]],"w":1180,"h":820},"2":{"f":"img/stat-vista-02.webp","b":[[768,70,380,246]],"w":1180,"h":820}},"stat-esporta":{"1":{"f":"img/stat-esporta-01.webp","b":[[933,32,83,30]],"w":1180,"h":820},"2":{"f":"img/stat-esporta-02.webp","b":[[302,122,576,575],[331,249,78,29]],"w":1180,"h":820},"3":{"f":"img/stat-esporta-03.webp","b":[[327,471,236,109],[581,471,236,109]],"w":1180,"h":820},"4":{"f":"img/stat-esporta-04.webp","b":[[773,637,80,36],[327,637,80,36]],"w":1180,"h":820}}});
+Object.assign(SHOTS,{"accesso-pannello":{"1":{"f":"img/accesso-pannello-01.webp","b":[[398,374,384,56]],"w":1180,"h":820},"2":{"f":"img/accesso-pannello-02.webp","b":[[380,311,420,36],[380,382,373,36]],"w":1180,"h":820},"3":{"f":"img/accesso-pannello-03.webp","b":[[380,311,420,36],[380,382,373,36]],"w":1180,"h":820},"4":{"f":"img/accesso-pannello-04.webp","b":[[380,382,373,36],[380,483,420,31]],"w":1180,"h":820},"5":{"f":"img/accesso-pannello-05.webp","b":[[12,109,231,484]],"w":1180,"h":820},"6":{"f":"img/accesso-pannello-06.webp","b":[[16,768,223,36]],"w":1180,"h":820},"7":{"f":"img/accesso-pannello-07.webp","b":[[380,331,420,31]],"w":1180,"h":820},"8":{"f":"img/accesso-pannello-08.webp","b":[[398,374,384,56]],"w":1180,"h":820},"9":{"f":"img/accesso-pannello-09.webp","b":[[380,348,186,17]],"w":1180,"h":820}}});
+const STEPMAP={
+  'prendere-ordine':[1,2,3,6,4,5],
+  'chiusura-giornata':[1,{n:2,b:[0]},{n:2,b:[1]},3,4,5],
+  'nuovo-piatto':[1,{n:2,b:[0]},{n:2,b:[1]},3,4,5,6,7],
+  'piatto-esaurito':[1,2,3,6,4,5],
+  'piatto-altra-categoria':[1,{n:2,b:[0]},{n:2,b:[1]},3],
+  'correggere-pagamento':[{g:'annullare-ordine',n:1},1,2,{n:3,b:[0]},{n:3,b:[1]}],
+  'eliminare-piatto':[2,3,4],
+  'fattura':[1,0,0,0,0],
+  'piatto-non-si-aggiunge':[1,2],
+  'ristampare':[1,2,{n:3,b:[0,1]},4]
+};
+function shotFor(g,i){
+  const m=STEPMAP[g.id]; let ref=m?m[i]:i+1;
+  if(!ref) return null;
+  if(typeof ref==='number') ref={n:ref};
+  const set=SHOTS[ref.g||g.id]; if(!set) return null;
+  const sh=set[ref.n]; if(!sh) return null;
+  return ref.b ? Object.assign({},sh,{b:ref.b.map(k=>sh.b[k]).filter(Boolean)}) : sh;
+}
+function shotHtml(sh,label){
+  const W=sh.w,H=sh.h,PAD=8,R=12;
+  const pc=v=>(v*100).toFixed(3)+'%';
+  const rings=sh.b.map(function(b){
+    const x=Math.max(0,b[0]-PAD), y=Math.max(0,b[1]-PAD);
+    const w=Math.min(W,b[0]+b[2]+PAD)-x, h=Math.min(H,b[1]+b[3]+PAD)-y;
+    return [x,y,w,h,Math.min(R,w/2,h/2)];
+  });
+  // Unione dei riquadri: serve per scegliere il ritaglio in base allo spazio disponibile (vedi layoutShots).
+  let U='';
+  if(rings.length){
+    let ux=Infinity,uy=Infinity,ux2=0,uy2=0;
+    rings.forEach(function(q){ux=Math.min(ux,q[0]);uy=Math.min(uy,q[1]);ux2=Math.max(ux2,q[0]+q[2]);uy2=Math.max(uy2,q[1]+q[3]);});
+    U=[ux,uy,ux2,uy2].map(function(v){return Math.round(v);}).join(',');
+  }
+  const st='aspect-ratio:'+W+'/'+H;
+  let h='<figure class="shot" style="'+st+'" data-w="'+W+'" data-h="'+H+'" data-u="'+U+'" data-a="'+(rings[0]&&rings[0][2]*rings[0][3]<W*H*0.2?rings[0].slice(0,4).map(Math.round).join(','):'')+'"><div class="stage">';
+  h+='<img src="'+sh.f+'" width="1000" height="'+Math.round(H*1000/W)+'" loading="lazy" decoding="async" alt="'+esc(label)+'">';
+  if(rings.length){
+    // Velo sfocato e scurito su tutta la schermata; sopra, una "lente" nitida per ogni elemento da toccare.
+    h+='<div class="veil" aria-hidden="true"></div>';
+    rings.forEach(function(q){
+      const [x,y,w,hh,r]=q;
+      h+='<div class="lens" aria-hidden="true" style="left:'+pc(x/W)+';top:'+pc(y/H)+';width:'+pc(w/W)+';height:'+pc(hh/H)+';border-radius:'+(r/w*100).toFixed(2)+'%/'+(r/hh*100).toFixed(2)+'%">'
+        +'<img src="'+sh.f+'" alt="" style="width:'+pc(W/w)+';height:'+pc(H/hh)+';left:'+pc(-x/w)+';top:'+pc(-y/hh)+'"></div>';
+    });
+    let s='<svg class="marks" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" aria-hidden="true" focusable="false">';
+    rings.forEach(function(q){
+      const [x,y,w,hh,r]=q;
+      s+='<rect class="pulse" x="'+x+'" y="'+y+'" width="'+w+'" height="'+hh+'" rx="'+r+'" fill="none" stroke="#F0563C" stroke-width="3" vector-effect="non-scaling-stroke"/>';
+      s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+hh+'" rx="'+r+'" fill="none" stroke="#fff" stroke-width="6" vector-effect="non-scaling-stroke"/>';
+      s+='<rect x="'+x+'" y="'+y+'" width="'+w+'" height="'+hh+'" rx="'+r+'" fill="none" stroke="#CC3D20" stroke-width="3" vector-effect="non-scaling-stroke"/>';
+    });
+    // Una sola freccia, sul primo elemento da toccare: disegnata da layoutShots dentro la zona visibile.
+    s+='<path class="arw arw-b" d="" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+    s+='<path class="arw arw-f" d="" stroke="#CC3D20" stroke-width="4" fill="none" stroke-linecap="round" vector-effect="non-scaling-stroke"/>';
+    s+='</svg>';
+    h+=s;
+  }
+  h+='</div></figure>';
+  return h;
+}
+
+/* Adatta ogni schermata allo spazio libero: il ritaglio prende la forma del riquadro disponibile
+   (niente vuoti sopra e sotto, niente tagli dell'elemento), con più ingrandimento sul telefono. */
+function layoutShots(){
+  document.querySelectorAll('.step .fig .shot').forEach(function(sh){
+    const fig=sh.parentElement, cs=getComputedStyle(fig);
+    const fw=fig.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+    const fh=fig.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+    if(fw<20||fh<20) return;
+    const W=+sh.dataset.w, H=+sh.dataset.h, ra=fw/fh;
+    let cx=0,cy=0,cw=W,ch=H;
+    if(sh.dataset.u){
+      const u=sh.dataset.u.split(',').map(Number), bw=u[2]-u[0], bh=u[3]-u[1], mx=(u[0]+u[2])/2, my=(u[1]+u[3])/2;
+      if(innerWidth<560){ cw=Math.min(W,Math.max(320,bw+(bw>460?40:150))); ch=cw/ra; }
+      else if(ra<W/H){ ch=H; cw=H*ra; }          // spazio più alto che largo: ritaglio a tutta altezza
+      else { cw=W; ch=H; }                        // spazio largo: schermata intera
+      if(ch>H){ ch=H; cw=Math.min(W,H*ra); }
+      if(cw>W){ cw=W; ch=Math.min(H,W/ra); }
+      if(cw<bw+24){ cw=Math.min(W,bw+24); ch=Math.min(H,cw/ra); }
+      if(ch<bh+24){ ch=Math.min(H,bh+24); cw=Math.min(W,ch*ra); }
+      if(cw<bw+16||ch<bh+16){ cw=W; ch=H; }      // zona troppo grande per un ritaglio: schermata intera
+      cx=Math.max(0,Math.min(W-cw,mx-cw/2)); cy=Math.max(0,Math.min(H-ch,my-ch/2));
+    }
+    const ar=cw/ch, dw=Math.min(fw,fh*ar);
+    sh.style.aspectRatio=cw.toFixed(1)+'/'+ch.toFixed(1);
+    sh.style.width=dw+'px';
+    sh.style.setProperty('--zz',(W/cw).toFixed(3));
+    const st=sh.querySelector('.stage'); const pc=v=>(v*100).toFixed(3)+'%';
+    st.style.left=pc(-cx/cw); st.style.top=pc(-cy/ch); st.style.width=pc(W/cw); st.style.height=pc(H/ch);
+    const a=sh.dataset.a, b=sh.querySelector('.arw-b'), f=sh.querySelector('.arw-f');
+    if(a&&b&&f){
+      const q=a.split(',').map(Number), x=q[0], y=q[1], w=q[2], hh=q[3];
+      const ccx=cx+cw/2, ccy=cy+ch/2, tcx=x+w/2, tcy=y+hh/2;
+      const dx=tcx>ccx?-1:1, dy=tcy>ccy?-1:1, hx=dx>0?x+w:x, hy=dy>0?y+hh:y;
+      const k=cw/7; let tx=hx+dx*k, ty=hy+dy*k*.85;
+      tx=Math.max(cx+12,Math.min(cx+cw-12,tx)); ty=Math.max(cy+12,Math.min(cy+ch-12,ty));
+      let d='';
+      if(Math.hypot(tx-hx,ty-hy)>cw/40){
+        const ang=Math.atan2(hy-ty,hx-tx), L=cw/26, a1=ang+2.55, a2=ang-2.55, r=v=>v.toFixed(0);
+        d='M'+r(tx)+' '+r(ty)+'L'+r(hx)+' '+r(hy)+'M'+r(hx)+' '+r(hy)+'L'+r(hx+L*Math.cos(a1))+' '+r(hy+L*Math.sin(a1))+'M'+r(hx)+' '+r(hy)+'L'+r(hx+L*Math.cos(a2))+' '+r(hy+L*Math.sin(a2));
+      }
+      b.setAttribute('d',d); f.setAttribute('d',d);
+    }
+  });
+}
+window.addEventListener('resize',function(){ layoutShots(); });
+
+
+/* ---------------- contenuti ---------------- */
+const SECTIONS=[
+  {id:'iniziare',title:'Iniziare',icon:'key'},
+  {id:'sala',title:'Servizio in sala',icon:'plate'},
+  {id:'cassa',title:'Cassa e conto',icon:'cash'},
+  {id:'menu',title:'Menu e piatti',icon:'folder'},
+  {id:'statistiche',title:'Statistiche',icon:'chart'},
+  {id:'problemi',title:'Se qualcosa non va',icon:'alert'}
+];
+/* Le voci con hidden:true restano nel codice ma non compaiono in home, nella ricerca né nel percorso: per riattivarle basta togliere il flag. */
+const G_ALL=[
+/* ---------- INIZIARE ---------- */
+{id:"accesso-pannello",sec:'statistiche',icon:'key',q:"Come entro nel pannello di gestione del locale?",kw:"statistiche accesso login entrare pannello gestione locale ristorante email password accedi esci logout uscire titolare gestionale",
+ steps:[
+  {t:"Apri l’indirizzo del pannello nel browser. Compare la pagina «Gestione Ristorante»: tocca «Accedi»."},
+  {t:"Si apre la pagina di accesso. Qui ci sono i due campi da compilare: la email e la password."},
+  {t:"Scrivi la tua email nel primo campo, poi tocca il campo della password."},
+  {t:"Scrivi la password: per sicurezza compare come puntini. Poi tocca il pulsante per entrare."},
+  {t:"Sei dentro: a sinistra vedi il menu con «Utenti», «Magazzino», «Fatture», «Fornitori», «Tavoli», «Prenotazioni», «Ordine online», «Dispositivi», «Software Agent» e «Statistiche»."},
+  {t:"Per uscire tocca «Esci» in basso a sinistra."},
+  {t:"Compare una pagina che chiede conferma («Do you want to log out?», in inglese): tocca «Logout»."},
+  {t:"Sei uscito e torni alla pagina di accesso: per rientrare tocca di nuovo «Accedi»."},
+  {t:"Se sbagli email o password compare un messaggio in rosso: controlla i dati e riprova."}
+ ]},
+{id:'accedere',sec:'iniziare',icon:'key',q:'Come entro nella cassa?',kw:'accesso login pin entrare password operatore nome codice',
+ steps:[
+  {t:'Guarda lo schermo: vedi la scritta «Chi sta lavorando?».'},
+  {t:'Tocca il riquadro con il tuo nome.'},
+  {t:'Scrivi il tuo PIN di 4 cifre sul tastierino.'},
+  {t:'Hai sbagliato una cifra? Tocca la freccia «⌫» per cancellarla. Tocca «CANC» per ricominciare.'},
+  {t:'Ora vedi la schermata con i piatti. Puoi lavorare.'}
+ ]},
+{id:'schermata',sec:'iniziare',icon:'layout',q:'Com\'è fatta la schermata della cassa?',kw:'schermata come funziona orientarsi dove colonna',
+ steps:[
+  {t:'A sinistra, in giallo, c\'è l\'ordine che stai facendo: nome del cliente, tavolo, piatti e «TOTALE».'},
+  {t:'Al centro ci sono i piatti della categoria scelta.'},
+  {t:'A destra ci sono le categorie (per esempio «BAR»). Toccane una per cambiare piatti.'},
+  {t:'In basso a destra ci sono «Riepilogo ordini» e «Ristampa ultimo».'},
+  {t:'In alto a destra c\'è la rotella gialla: apre le impostazioni.'},
+  {t:'In basso a sinistra ci sono i tasti per incassare: «PAGAMENTI» e «ALTRO».'}
+ ]},
+{id:'cambiare-operatore',hidden:true,sec:'iniziare',icon:'users',q:'Come cambio operatore o esco?',kw:'cambia utente logout esci operatore turno collega',
+ steps:[
+  {t:'Tocca la rotella gialla in alto a destra.'},
+  {t:'In basso a sinistra tocca «Cambia Utente».'},
+  {t:'Nella finestra tocca di nuovo «Cambia Utente».'},
+  {t:'Per uscire del tutto tocca «Logout», poi «Esci».'}
+ ]},
+{id:'schermo-intero',sec:'iniziare',icon:'expand',q:'Come metto la cassa a schermo intero?',kw:'schermo intero grande fullscreen ingrandire',
+ steps:[
+  {t:'Tocca il tasto giallo con i quattro angoli, sotto la rotella.'},
+  {t:'Per tornare normale tocca di nuovo lo stesso tasto.'}
+ ]},
+
+/* ---------- SALA ---------- */
+{id:'prendere-ordine',sec:'sala',icon:'plate',q:'Come prendo un ordine?',kw:'ordine ordinare aggiungere piatto prodotto comanda quantità menu',
+ steps:[
+  {t:'A destra tocca la categoria, per esempio «PIATTI».'},
+  {t:'Tocca la foto del piatto. Ogni tocco aggiunge 1 piatto.'},
+  {t:'Per una quantità precisa tocca il numero accanto alla foto (da 1 a 5).'},
+  {t:'Più di 5? Tocca «≡» accanto ai numeri.'},
+  {t:'Scrivi il numero e tocca «OK».'},
+  {t:'Controlla l\'ordine nella colonna gialla a sinistra.'}
+ ]},
+{id:'tavolo-coperti',sec:'sala',icon:'table',q:'Come scelgo il tavolo e i coperti?',kw:'tavolo coperti persone ospiti sala numero',
+ steps:[
+  {t:'Nella colonna gialla tocca «+ Seleziona tavolo». Per gli ordini in sala serve sempre.'},
+  {t:'Tocca il tavolo nell\'elenco. Oppure scrivi il numero in «Numero tavolo» e tocca «Vai».'},
+  {t:'Per i coperti tocca «+» o «−». Oppure tocca il numero e scegli il valore.'},
+  {t:'Tavolo sbagliato? Tocca la «×» accanto al nome del tavolo e scegline un altro.'}
+ ]},
+{id:'asporto',sec:'sala',icon:'bag',q:'Come segno un ordine da asporto con il nome del cliente?',kw:'asporto da portare via take away nome cliente ritiro',
+ steps:[
+  {t:'Nella fascia «RIEPILOGO» tocca il primo tasto (le posate).'},
+  {t:'Tocca il campo «Cerca o digita un nome».'},
+  {t:'Scrivi il nome del cliente (è obbligatorio), oppure toccalo nell\'elenco se compare.'},
+  {t:'Per tornare all\'ordine in sala tocca di nuovo il tasto arancione.'}
+ ]},
+{id:'nota-modifica',sec:'sala',icon:'edit',q:'Come aggiungo una nota o una modifica a un piatto?',kw:'nota modifica senza cipolla cottura aggiunta personalizza modificatore allergia',
+ steps:[
+  {t:'Nella colonna gialla tocca il nome del piatto.'},
+  {t:'Si apre «Personalizza». Tocca le modifiche che servono, per esempio «Doppia porzione».'},
+  {t:'Scrivi la richiesta nel campo «Note aggiuntive», per esempio «senza cipolla».'},
+  {t:'Tocca «Conferma personalizzazioni».'},
+  {t:'Controlla il piatto nella colonna gialla.'}
+ ]},
+{id:'correggere-ordine',sec:'sala',icon:'edit',q:'Come cambio o tolgo un piatto prima di incassare?',kw:'togliere cancellare piatto sbagliato meno più quantità svuota carrello annulla ordine corrente',
+ steps:[
+  {t:'Nella riga del piatto tocca «−» per toglierne uno, «+» per aggiungerne uno.'},
+  {t:'Per togliere tutta la riga tocca il cestino rosso nella riga.'},
+  {t:'Per cancellare tutto l\'ordine tocca il cestino rosso in alto, nella fascia «RIEPILOGO».'},
+  {t:'Nella finestra «Conferma annullamento» tocca «Conferma».'}
+ ]},
+{id:'parcheggiare',sec:'sala',icon:'pause',q:'Come metto in pausa un ordine e lo riprendo dopo?',kw:'parcheggia pausa sospendere riprendere ripristina dopo attesa',
+ steps:[
+  {t:'Nella fascia «RIEPILOGO» tocca il tasto blu (Parcheggia ordine).'},
+  {t:'Per riprenderlo tocca il tasto arancione (Ripristina ordine parcheggiato).'},
+  {t:'Se il carrello non è vuoto, tocca «Ripristina» per sostituirlo.'}
+ ]},
+{id:'omaggio',sec:'sala',icon:'gift',q:'Come offro un piatto in omaggio?',kw:'omaggio gratis regalo offerto sconto',
+ steps:[
+  {t:'Nella fascia «RIEPILOGO» tocca il tasto verde con il pacco regalo («Omaggio»).'},
+  {t:'Nella finestra «Omaggi» accendi l\'interruttore accanto al piatto da regalare. Oppure tocca «Tutto omaggio».'},
+  {t:'Tocca «Conferma».'}
+ ]},
+
+/* ---------- CASSA ---------- */
+{id:'incassare-banco',sec:'cassa',icon:'cash',q:'Come incasso il conto?',kw:'pagare pagamento pagamenti incassare contanti carta bancomat pos preconto resto conto soldi',
+ steps:[
+  {t:'Controlla che ci siano il tavolo e il nome del cliente: senza, la cassa non incassa. Per l\'asporto basta il nome.'},
+  {t:'Tocca «PAGAMENTI», in basso a sinistra.'},
+  {t:'Tocca «Contante» se paga in contanti. Tocca «POS / Carta» se paga con la carta.'},
+  {t:'Con i contanti: tocca le banconote e le monete che ti dà il cliente.'},
+  {t:'Leggi «Resto da dare» e dai il resto al cliente.'},
+  {t:'Tocca «Chiudi».'}
+ ]},
+{id:'dividere-banco',hidden:true,sec:'cassa',icon:'split',q:'Come divido il conto tra più persone?',kw:'dividere conto separato gruppi pagano separati romana',
+ steps:[
+  {t:'Il conto si divide sugli ordini da asporto: il primo tasto in «RIEPILOGO» deve essere arancione. Se non lo è, toccalo.'},
+  {t:'Con i piatti nel carrello tocca «ALTRO».'},
+  {t:'Tocca «Dividi il conto».'},
+  {t:'Tocca i piatti del primo gruppo («Gruppo 1»).'},
+  {t:'Tocca «Contante» o «POS / Carta» per far pagare il gruppo.'},
+  {t:'Ripeti per gli altri gruppi. L\'ultimo gruppo chiude il carrello.'}
+ ]},
+{id:'fattura',hidden:true,sec:'cassa',icon:'receipt',q:'Come faccio la fattura a un cliente?',kw:'fattura partita iva azienda codice fiscale sdi pec',
+ steps:[
+  {t:'Con i piatti nel carrello tocca «ALTRO».'},
+  {t:'Tocca «Fattura».'},
+  {t:'Cerca il cliente per nome, Partita IVA o codice fiscale e toccalo.'},
+  {t:'Scegli come paga: «Contanti», «Carta» o «Bonifico».'},
+  {t:'Tocca «Conferma ed emetti».'}
+ ]},
+{id:'chiusura-giornata',hidden:true,sec:'cassa',icon:'lock',q:'Come faccio la chiusura di fine giornata?',kw:'chiusura fine giornata z report fiscale sera totale giornaliero',
+ steps:[
+  {t:'Tocca la rotella gialla in alto a destra.'},
+  {t:'Tocca «FISCALE».'},
+  {t:'Tocca «CHIUSURA».'},
+  {t:'Nella scheda «GIORNATA» controlla il «Riepilogo Giornata».'},
+  {t:'Tocca il tasto rosso «CHIUSURA Z-REPORT».'},
+  {t:'Leggi l\'avviso e tocca «CONFERMA CHIUSURA». Non si può annullare: falla solo a fine servizio.'}
+ ]},
+
+/* ---------- MENU ---------- */
+{id:'nuovo-piatto',sec:'menu',icon:'plus',q:'Come aggiungo un piatto nuovo?',kw:'nuovo piatto prodotto articolo aggiungere menu creare',
+ steps:[
+  {t:'Tocca la rotella gialla in alto a destra.'},
+  {t:'Tocca «GESTISCI REPARTI».'},
+  {t:'Tocca «REPARTI».'},
+  {t:'Trova la categoria giusta. In fondo alla sua colonna tocca il tasto giallo «NUOVO».'},
+  {t:'Scrivi il nome del piatto nel campo «Nome».'},
+  {t:'Scrivi il prezzo in «Prezzo Vendita (EUR)».'},
+  {t:'In «Stazione di Preparazione» scegli dove si prepara (cucina o bar): senza, il piatto non esce in comanda.'},
+  {t:'Tocca «Conferma».'}
+ ]},
+{id:'cambiare-prezzo',sec:'menu',icon:'tag',q:'Come cambio il prezzo di un piatto?',kw:'prezzo cambiare modificare costo listino aumentare',
+ steps:[
+  {t:'Tocca «REPARTI». Lo trovi dentro «GESTISCI REPARTI», dopo la rotella.'},
+  {t:'Tocca il nome del piatto.'},
+  {t:'Nella finestra «Modifica Prodotto» tocca «Prezzo Vendita (EUR)» e scrivi il nuovo prezzo.'},
+  {t:'Aspetta la scritta «Salvato». Poi tocca «Chiudi».'}
+ ]},
+{id:'piatto-esaurito',sec:'menu',icon:'ban',q:'Come segno un piatto esaurito?',kw:'esaurito finito non disponibile sospeso sospendere togliere dal menu terminato',
+ steps:[
+  {t:'Tocca «REPARTI». Lo trovi dentro «GESTISCI REPARTI», dopo la rotella.'},
+  {t:'Tocca il nome del piatto finito.'},
+  {t:'In «Disponibilità» accendi l\'interruttore «Sospeso». Deve dire «SI».'},
+  {t:'Tocca «Chiudi».'},
+  {t:'Guarda la cassa: il piatto è grigio con la fascia «SOSPESO» e non si può aggiungere.'},
+  {t:'Quando torna disponibile, spegni l\'interruttore «Sospeso» (deve dire «NO»).'}
+ ]},
+{id:'porzioni',sec:'menu',icon:'count',q:'Come imposto quante porzioni ho di un piatto?',kw:'porzioni quantità scorta stock disponibili contare magazzino rimaste',
+ steps:[
+  {t:'In «REPARTI» tocca il nome del piatto.'},
+  {t:'In «Porzioni Disponibili» scegli «Tipo conteggio»: «Conteggio porzioni».'},
+  {t:'Scrivi il numero in «Porzioni disponibili».'},
+  {t:'Tocca «Salva Stock».'},
+  {t:'In cassa il piatto mostra il numero delle porzioni rimaste.'}
+ ]},
+{id:'nuova-categoria',sec:'menu',icon:'folder',q:'Come creo una nuova categoria?',kw:'categoria reparto nuova creare sezione menu gruppo',
+ steps:[
+  {t:'Tocca «REPARTI». Lo trovi dentro «GESTISCI REPARTI», dopo la rotella.'},
+  {t:'Tocca il grande tasto giallo con il «+», sul bordo destro.'},
+  {t:'Scrivi il nome in «Nome Categoria», per esempio «PRIMI PIATTI». Lascia «Tipo Categoria» su «Normale».'},
+  {t:'Tocca «CONFERMA».'},
+  {t:'Per cambiare il nome tocca la matita in alto nella colonna della categoria.'}
+ ]},
+{id:'piatto-altra-categoria',sec:'menu',icon:'copy',q:'Come metto un piatto anche in un\'altra categoria?',kw:'esistente spostare copiare altra categoria assegnare',
+ steps:[
+  {t:'In «REPARTI», nella categoria di arrivo, tocca il tasto grigio «ESISTENTE».'},
+  {t:'Scrivi il nome del piatto in «Cerca articolo…».'},
+  {t:'Tocca il piatto nell\'elenco.'},
+  {t:'Tocca «Aggiungi 1 articolo».'}
+ ]},
+{id:'eliminare-piatto',sec:'menu',icon:'trash',q:'Come elimino un piatto dal menu?',kw:'eliminare cancellare togliere piatto definitivo',
+ steps:[
+  {t:'In «REPARTI» tocca il nome del piatto.'},
+  {t:'In alto nella finestra tocca il tasto rosso «Elimina».'},
+  {t:'Nella domanda «Eliminare il prodotto?» tocca «Elimina».'}
+ ]},
+{id:'modificatori',sec:'menu',icon:'sliders',q:'Come creo le aggiunte e le modifiche (per esempio «Senza glutine»)?',kw:'modificatori aggiunte extra senza glutine doppia porzione personalizzazioni',
+ steps:[
+  {t:'Tocca «MODIFICATORI». Lo trovi dentro «GESTISCI REPARTI», dopo la rotella.'},
+  {t:'Tocca «Crea modificatore».'},
+  {t:'Scrivi il nome in «Nome», per esempio «Doppia porzione».'},
+  {t:'Scrivi il costo in più in «Prezzo extra (€)». Scrivi 0 se è gratis.'},
+  {t:'In «Categorie applicabili» spunta le categorie dove serve.'},
+  {t:'Tocca «CONFERMA».'}
+ ]},
+{id:'ordine-categorie',sec:'menu',icon:'drag',q:'Come cambio l\'ordine delle categorie in cassa?',kw:'ordine categorie spostare trascinare riordinare prima',
+ steps:[
+  {t:'Nella colonna destra della cassa tieni premuto il dito sulla categoria da spostare.'},
+  {t:'Senza staccare il dito, trascinala più su o più giù. Poi stacca il dito.'}
+ ]},
+
+/* ---------- STATISTICHE (titolare) ---------- */
+{id:"stat-schede",sec:"statistiche",icon:"chart",q:"Dove trovo le statistiche e come passo da una scheda all’altra?",kw:"statistiche schede panoramica vendite menu servizio dove trovo numeri andamento",
+ steps:[
+  {t:"Nel menu a sinistra tocca «Statistiche»."},
+  {t:"In alto trovi le schede: «Panoramica», «Vendite», «Menu» e «Servizio». Tocca quella che ti serve, per esempio «Servizio»."},
+  {t:"La scheda scelta resta evidenziata e sotto compaiono i suoi dati. Per tornare indietro tocca un’altra scheda."}
+ ]},
+{id:"stat-periodo",sec:"statistiche",icon:"calendar",q:"Come cambio il periodo che sto guardando?",kw:"statistiche periodo data giorno settimana mese intervallo ieri oggi calendario cambiare",
+ steps:[
+  {t:"Nel riquadro «Periodo e confronto», sotto «Periodo», tocca «7 giorni»."},
+  {t:"«7 giorni» si colora e i numeri qui sotto si aggiornano. Se ti serve un intervallo preciso, tocca «Periodo scelto»."},
+  {t:"Compaiono due calendari. In quello di sinistra («inizio») tocca il primo giorno, in quello di destra («fine») l’ultimo."},
+  {t:"Il periodo è ora dal 24 al 27 ottobre: la riga sotto i calendari lo riassume e i numeri si aggiornano."},
+  {t:"Finito di scegliere, tocca la freccia in alto a destra del riquadro per richiuderlo e vedere più dati."},
+  {t:"Il riquadro si riduce a una riga con il periodo scelto. Per cambiarlo di nuovo tocca quella riga."}
+ ]},
+{id:"stat-confronto",sec:"statistiche",icon:"split",q:"Come confronto un periodo con un altro?",kw:"statistiche confronto confrontare paragone periodo precedente ieri settimana scorsa anno variazione",
+ steps:[
+  {t:"Nel riquadro «Periodo e confronto», a destra sotto «Confronto», tocca «Giorno scelto»."},
+  {t:"A destra compare un calendario con già selezionato il giorno prima (il 27). Per sceglierne un altro tocca il giorno che vuoi."},
+  {t:"Scorrendo la pagina, le schede si dividono in due colonne: a sinistra il periodo scelto, a destra quello di confronto, con la variazione in percentuale."},
+  {t:"Per tornare a una colonna sola tocca «Nessun confronto»."},
+  {t:"Il confronto è spento e le schede tornano a tutta larghezza."}
+ ]},
+{id:"stat-panoramica",sec:"statistiche",icon:"chart",q:"Cosa dicono i numeri della Panoramica?",kw:"statistiche panoramica incassi ordini scontrino medio coperti kpi numeri riepilogo come pagano",
+ steps:[
+  {t:"Apri la scheda «Panoramica»: in alto c’è «Incassi», il totale incassato nel periodo scelto. Sotto leggi «Ordini pagati», «Scontrino medio», «Coperti serviti» e «Ricavo per coperto»."},
+  {t:"Per vedere più numeri tocca «Mostra altro»."},
+  {t:"Si apre l’elenco completo dei numeri della giornata. Per richiuderlo tocca «Mostra meno»."},
+  {t:"«Come pagano» mostra in che percentuale i clienti hanno pagato in «Contanti» e con «Carta»."},
+  {t:"«Quanto si incassa per fascia oraria» dice in quali ore si lavora di più: più la barra è lunga, più si è incassato in quell’ora."},
+  {t:"«Cosa si vende di più» elenca i cinque piatti che hanno incassato di più nel periodo."}
+ ]},
+{id:"stat-vendite",sec:"statistiche",icon:"cash",q:"Quanto ho incassato, e come, giorno per giorno?",kw:"statistiche vendite incassi giorno per giorno contanti carta pos canali tavolo banco giorno settimana",
+ steps:[
+  {t:"Dalla Panoramica tocca la scheda «Vendite»."},
+  {t:"«Giorni lavorati» elenca ogni giorno del periodo con il «Totale incassato», diviso tra «POS» (carta) e «Contanti». In fondo trovi il totale."},
+  {t:"«Come pagano» confronta contanti e carta sull’intero periodo."},
+  {t:"«Da dove arrivano gli ordini» divide il venduto tra «Tavolo», «Banco» e gli altri canali."},
+  {t:"«Per giorno della settimana» ti dice quali giorni incassi di più: ogni barra somma tutti i lunedì, tutti i martedì e così via."}
+ ]},
+{id:"stat-per-orario",sec:"statistiche",icon:"clock",q:"Come vedo a che ora vendo un certo piatto?",kw:"statistiche orario ora fascia oraria piatto quando vendo per orario margherita",
+ steps:[
+  {t:"Nella scheda «Vendite» scorri fino a «Per orario»: mostra gli incassi ora per ora."},
+  {t:"Per vedere cosa si è venduto in una certa ora tocca la riga dell’ora, per esempio «13:00»."},
+  {t:"La riga si apre e mostra i piatti venduti in quell’ora, con le porzioni e l’incasso di ciascuno. Tocca di nuovo la riga per richiuderla."},
+  {t:"Per guardare un piatto preciso tocca il campo «Aggiungi piatto…»."},
+  {t:"Scrivi le prime lettere del nome, per esempio «Marg», e tocca il piatto che compare nell’elenco."},
+  {t:"Ora l’elenco mostra, ora per ora, quante «Margherita» hai venduto e quanto hanno incassato. Il piatto scelto compare sotto il campo con una «x»: toccala per toglierlo."}
+ ]},
+{id:"stat-menu",sec:"statistiche",icon:"plate",q:"Quali piatti vendo di più e quali di meno?",kw:"statistiche menu piatti classifica più venduti meno venduti categoria ricavo quantità omaggi",
+ steps:[
+  {t:"Tocca la scheda «Menu»."},
+  {t:"In «Cosa hanno ordinato» i piatti sono in classifica «Per ricavo»: in cima quelli che hanno incassato di più."},
+  {t:"Per guardare solo una famiglia di piatti tocca il nome di una categoria, per esempio «PIZZE»."},
+  {t:"Restano solo le pizze, con quante porzioni e quanto hanno incassato. Per tornare a tutto tocca «Tutte»."},
+  {t:"Per ordinarli in base a quante porzioni sono state vendute tocca «Per quantità»."},
+  {t:"Ora la classifica segue le porzioni vendute. «A→Z» invece li mette in ordine alfabetico."},
+  {t:"La classifica mostra i primi piatti. Per vedere anche gli altri tocca «Mostra altro»."},
+  {t:"Scendendo nell’elenco arrivi ai piatti che si vendono meno: sono quelli da valutare se togliere o rilanciare."},
+  {t:"«Omaggi» elenca i piatti regalati: le porzioni, il loro valore a listino e i conti in cui sono comparsi. Non sono contati nelle vendite."}
+ ]},
+{id:"stat-servizio",sec:"statistiche",icon:"users",q:"Come è andato il servizio: coda, cucina e sala?",kw:"statistiche servizio coda cucina sala tempi attesa puntualità tavoli coperti preparazione",
+ steps:[
+  {t:"Tocca la scheda «Servizio»."},
+  {t:"In alto trovi tre sotto-schede: «Coda», «Cucina» e «Sala». Si parte da «Coda»."},
+  {t:"«Come è andata la coda» riassume i ticket emessi, l’«Attesa media» dei clienti e quanti sono stati chiamati nella fascia prenotata."},
+  {t:"«Puntualità per fascia» dice, fascia per fascia, quanti clienti sono stati chiamati «In orario», «In anticipo» o «In ritardo»."},
+  {t:"Per i tempi della cucina tocca «Cucina»."},
+  {t:"«Come è andata la cucina» mostra il «Tempo medio di preparazione», i «Piatti completati» e quanti ticket hanno superato i 20 minuti. Sotto, il grafico dei piatti completati giorno per giorno."},
+  {t:"Per i dati dei tavoli tocca «Sala»."},
+  {t:"«Come è andata la sala» mostra i «Tavoli serviti», i «Coperti totali», il «Ricavo medio per coperto», lo «Scontrino medio» e il «Ricavo medio per tavolo»."}
+ ]},
+{id:"stat-fiscale",hidden:true,sec:"statistiche",icon:"receipt",q:"Dove vedo scontrini, annulli e chiusure Z?",kw:"statistiche fiscale scontrini annulli chiusure z corrispettivi note di credito documenti",
+ steps:[
+  {t:"Tocca la scheda «Fiscale»."},
+  {t:"«Documenti e corrispettivi» mostra i «Corrispettivi», i «Documenti emessi», gli «Annulli», le «Note di credito» e le «Chiusure Z» del periodo."},
+  {t:"«Chiusure giornaliere» ha una riga per ogni chiusura del registratore telematico, con data e importo."}
+ ]},
+{id:"stat-vista",sec:"statistiche",icon:"sliders",q:"Come cambio la «Vista» delle statistiche?",kw:"statistiche vista ristorante sagra automatica modalità statistiche lente",
+ steps:[
+  {t:"In alto a destra tocca «Vista: Ristorante»."},
+  {t:"Si apre il pannello della vista: qui scegli come leggere i numeri (per esempio «Ristorante» o «Sagra»). Tocca di nuovo il pulsante per chiuderlo."}
+ ]},
+{id:"stat-esporta",sec:"statistiche",icon:"download",q:"Come esporto le statistiche in Excel?",kw:"statistiche esportare esporta excel scarica file foglio xlsx riepilogo completo export",
+ steps:[
+  {t:"In alto, accanto a «Vista», tocca «Esporta»."},
+  {t:"Si apre la finestra «Esporta statistiche». In «Contenuto» scegli «Riepilogo» (un solo foglio con i totali) oppure «Completo» (tutte le schede)."},
+  {t:"Sotto «Periodo» i calendari mostrano le date che verranno esportate («Esporti: 23 → 29 ottobre 2026»). Per cambiarle tocca un altro giorno di inizio e di fine."},
+  {t:"Quando sei pronto tocca «Scarica» per ricevere il file Excel; con «Annulla» chiudi la finestra senza scaricare nulla."}
+ ]},
+
+/* ---------- PROBLEMI ---------- */
+{id:'annullare-ordine',sec:'problemi',icon:'undo',q:'Come annullo un ordine già pagato?',kw:'annullare storno ordine pagato sbagliato rimborso annullo',
+ steps:[
+  {t:'Tocca «Riepilogo ordini», in basso a destra.'},
+  {t:'Tocca la riga dell\'ordine.'},
+  {t:'In basso nella finestra tocca «ANNULLA ORDINE».'},
+  {t:'Tocca «CONFERMA ANNULLAMENTO».'}
+ ]},
+{id:'correggere-pagamento',hidden:true,sec:'problemi',icon:'cash',q:'Ho segnato contanti invece di carta: come correggo?',kw:'correggi pagamento sbagliato contanti carta metodo errore',
+ steps:[
+  {t:'Tocca «Riepilogo ordini», in basso a destra.'},
+  {t:'Tocca la riga dell\'ordine.'},
+  {t:'Tocca «CORREGGI PAGAMENTO».'},
+  {t:'In «Nuovo pagamento» tocca il pagamento giusto.'},
+  {t:'Tocca «Correggi pagamento».'}
+ ]},
+{id:'ristampare',sec:'problemi',icon:'print',q:'Come ristampo la comanda o il preconto?',kw:'ristampa stampa stampare di nuovo comanda preconto copia stampante',
+ steps:[
+  {t:'Tocca «Ristampa ultimo», in basso a destra.'},
+  {t:'Tocca l\'ordine da ristampare.'},
+  {t:'Scegli cosa stampare: «Cucina (comanda)» o «Preconto».'},
+  {t:'Tocca «RISTAMPA».'}
+ ]},
+{id:'piatto-non-si-aggiunge',sec:'problemi',icon:'ban',q:'Perché un piatto non si aggiunge?',kw:'non si aggiunge bloccato grigio sospeso esaurito',
+ steps:[
+  {t:'Fascia grigia «SOSPESO»: il piatto è stato fermato. Si riattiva in «REPARTI» (interruttore «Sospeso» su «NO»).'},
+  {t:'Fascia rossa «ESAURITO»: le porzioni sono finite. Il titolare può ricaricarle in «Porzioni Disponibili».'}
+ ]},
+{id:'manca-tavolo',sec:'problemi',icon:'alert',q:'La cassa dice che servono il tavolo e il nome del cliente: cosa faccio?',kw:'serve il tavolo nome cliente obbligatorio bordo rosso non paga non incassa',
+ steps:[
+  {t:'Guarda la colonna gialla: i campi che mancano hanno il bordo rosso.'},
+  {t:'Tocca «+ Seleziona tavolo».'},
+  {t:'Tocca il tavolo nell\'elenco.'},
+  {t:'Scrivi il nome del cliente in «Cerca o digita un nome».'},
+  {t:'Tocca di nuovo «PAGAMENTI».'}
+ ]},
+{id:'fascia-in-alto',hidden:true,sec:'problemi',icon:'alert',q:'In alto è comparsa una fascia colorata: cosa significa?',kw:'internet offline connessione rete agente rosso arancione fascia avviso nuova versione ricarica',
+ steps:[
+  {t:'Fascia «Senza internet — la cassa lavora in locale»: continua a lavorare normalmente.'},
+  {t:'Fascia rossa «La cassa non comunica con l\'agente…»: aspetta, poi tocca «Riprova ora». Se dopo 5 minuti è ancora rossa, riavvia il computer.'},
+  {t:'Fascia «Nuova versione UI disponibile.»: quando il carrello è vuoto tocca «Ricarica».'},
+  {t:'Scritta «Prima sincronizzazione richiesta»: collega internet e tocca «Sincronizza ora».'}
+ ]}
+];
+const G=G_ALL.filter(function(g){ return !g.hidden; });
+/* ordine di lettura: sezione per sezione */
+const ORDER=[]; SECTIONS.forEach(function(s){ G.forEach(function(g){ if(g.sec===s.id) ORDER.push(g); }); });
+
+/* ---------------- ricerca ---------------- */
+const SYN=[
+  ['tavolo','tavoli','coperti','coperto','sala','posti'],
+  ['conto','conti','pagare','pagamento','pagamenti','incassare','incasso','soldi','contanti','carta','bancomat','pos','resto'],
+  ['scontrino','scontrini','ricevuta','stampa','stampare','ristampa','preconto','fattura'],
+  ['piatto','piatti','articolo','articoli','prodotto','prodotti','pietanza','cibo','bevanda'],
+  ['menu','categoria','categorie','reparto','reparti','listino'],
+  ['cliente','clienti','nome','asporto'],
+  ['cucina','comanda','comande'],
+  ['sbagliato','errore','annulla','annullare','correggi','correggere','storno'],
+  ['entrare','accesso','accedere','pin','login','password'],
+  ['esaurito','finito','finita','sospeso','terminato'],
+  ['chiusura','giornata','report']
+];
+const norm=s=>String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim();
+const stem=w=>w.length>4?w.replace(/(i|e|a|o)$/,''):w;
+/* distanza di modifica con scambio di lettere vicine (Damerau, versione OSA), con uscita anticipata */
+function dist(a,b,max){
+  if(Math.abs(a.length-b.length)>max) return max+1;
+  const d=[]; for(let i=0;i<=a.length;i++){ d[i]=[i]; } for(let j=1;j<=b.length;j++) d[0][j]=j;
+  for(let i=1;i<=a.length;i++){ let best=99;
+    for(let j=1;j<=b.length;j++){ const c=a[i-1]===b[j-1]?0:1;
+      d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);
+      if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1]) d[i][j]=Math.min(d[i][j],d[i-2][j-2]+1);
+      if(d[i][j]<best) best=d[i][j]; }
+    if(best>max) return max+1; }
+  return d[a.length][b.length];
+}
+const STOP=new Set('come il lo la i gli le un una uno di da in con su per tra fra e o a al alla del della dei delle che cosa mi si ci non piu faccio fare devo posso ho ha questo questa'.split(' '));
+const FIELD={t:5,k:3,b:1};
+function tokens(s){ return norm(s).split(' ').filter(function(w){ return w && w.length>1 && !STOP.has(w); }).map(function(w){ return {r:w,s:stem(w)}; }); }
+G.forEach(function(g){
+  g._f={t:tokens(g.q), k:tokens(g.kw||''), b:tokens(g.steps.map(function(s){return s.t+' '+(s.r||'')+' '+(s.w||'');}).join(' '))};
+});
+function queryWord(w){
+  const q={r:w,s:stem(w),tol:w.length>=8?2:(w.length>=4?1:0),syn:[]};
+  SYN.forEach(function(group){ if(group.some(function(x){ return stem(x)===q.s || x===q.r; })) group.forEach(function(x){ const s=stem(x); if(s!==q.s && q.syn.indexOf(s)<0) q.syn.push(s); }); });
+  return q;
+}
+/* quanto una parola del testo corrisponde alla parola cercata: 0 = per niente */
+function wordScore(q,t,f){
+  if(t.s===q.s||t.r===q.r) return 1;
+  if(q.s.length>=3 && t.s.startsWith(q.s)) return .85;
+  if(q.tol && (f!=='b' || q.r.length>=6) && (dist(q.r,t.r,q.tol)<=q.tol || dist(q.s,t.s,q.tol)<=q.tol)) return .6;
+  for (const s of q.syn){ if(t.s===s) return .55; if(s.length>=4 && t.s.startsWith(s)) return .45; }
+  return 0;
+}
+function search(text){
+  const words=norm(text).split(' ').filter(function(w){ return w && !STOP.has(w); });
+  if(!words.length) return {list:[],q:[]};
+  const qs=words.map(queryWord);
+  const res=[];
+  ORDER.forEach(function(g,idx){
+    let total=0, all=true;
+    qs.forEach(function(q){
+      const best={t:0,k:0,b:0};
+      Object.keys(FIELD).forEach(function(f){ g._f[f].forEach(function(t){ const m=wordScore(q,t,f)*FIELD[f]; if(m>best[f]) best[f]=m; }); });
+      const mx=Math.max(best.t,best.k,best.b);
+      if(!mx) all=false;
+      total+=mx+.2*(best.t+best.k+best.b-mx);
+    });
+    if(total>0) res.push({g:g,score:total,all:all,idx:idx});
+  });
+  let list=res.filter(function(r){ return r.all; }); if(!list.length) list=res;
+  list.sort(function(a,b){ return (b.score-a.score)||(a.idx-b.idx); });
+  if(list.length){ const top=list[0].score; list=list.filter(function(r){ return r.score>=top*.45; }); }
+  return {list:list.map(function(r){ return r.g; }), q:qs};
+}
+function highlight(text,qs){
+  return esc(text).replace(/[A-Za-zÀ-ÿ0-9]+/g,function(tok){
+    const r=norm(tok); if(!r||r.length<2||STOP.has(r)) return tok;
+    const t={r:r,s:stem(r)};
+    return qs.some(function(q){ return wordScore(q,t)>0; }) ? '<mark>'+tok+'</mark>' : tok;
+  });
+}
+function snippet(g,qs){
+  for (const st of g.steps){ const ts=tokens(st.t); if(ts.some(function(t){ return qs.some(function(q){ return wordScore(q,t)>=.6; }); })) return st.t; }
+  return '';
+}
+
+
+/* ---------------- interfaccia ---------------- */
+const app=document.getElementById('app'), navbar=document.getElementById('navbar');
+const fmt=s=>esc(s).replace(/«([^»]+)»/g,'<span class="ui">«$1»</span>');
+const fmtMarked=(html)=>html.replace(/«([^»]+)»/g,'<span class="ui">«$1»</span>');
+const icon=(n,sz)=>'<svg width="'+(sz||24)+'" height="'+(sz||24)+'" aria-hidden="true"><use href="#i-'+n+'"/></svg>';
+const SUGGEST=['statistiche','export','tavolo','conto','preconto','piatto','menu','cliente','soldi','pagare'];
+function cardHtml(g,qs){
+  const title = qs ? fmtMarked(highlight(g.q,qs)) : fmt(g.q);
+  let sn=''; if(qs){ const t=snippet(g,qs); if(t) sn='<span class="snip">'+fmtMarked(highlight(t,qs))+'</span>'; }
+  return '<button class="card" type="button" data-go="'+g.id+'"><span class="cico">'+icon(g.icon,26)+'</span><span class="ct"><span class="q">'+title+'</span>'+sn+'</span><span class="go">'+icon('right',22)+'</span></button>';
+}
+let query='';
+let homeScroll=0; /* posizione della lista quando si apre una voce: al ritorno si riparte da lì */
+if('scrollRestoration' in history) history.scrollRestoration='manual';
+function renderHome(){
+  navbar.hidden=true; current=null; document.body.classList.remove('guide'); setNavH();
+  app.innerHTML='<header class="top"><div class="brandbar"><span class="wordmark" aria-label="cèlan">CÈLAN<i aria-hidden="true"></i></span><span class="tag">Guida alla cassa</span></div>'+
+    '<h1 id="h" tabindex="-1" class="display hero-title">Guida alla <span>cassa</span></h1>'+
+    '<div class="search" role="search"><span class="ico">'+icon('search',28)+'</span><label class="sr" for="q">Cerca nella guida</label>'+
+    '<input id="q" type="search" inputmode="search" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Cosa vuoi fare?">'+
+    '<button class="clear" type="button" id="clearq" aria-label="Cancella il testo della ricerca" hidden>'+icon('x',22)+'<span class="lbl" aria-hidden="true">Cancella</span></button></div>'+
+    '<div class="chips" aria-label="Ricerche veloci">'+SUGGEST.slice(0,6).map(function(w){return '<button class="chip" type="button" data-q="'+w+'">'+w+'</button>';}).join('')+'</div></header>'+
+    '<div id="results" aria-live="polite"></div>';
+  const qi=document.getElementById('q'), cl=document.getElementById('clearq');
+  qi.value=query;
+  const sbox=qi.parentElement; const sync=function(){ cl.hidden=!query; sbox.classList.toggle('has-text',!!query); };
+  qi.addEventListener('input',function(){ query=qi.value; sync(); renderResults(); });
+  cl.addEventListener('click',function(){ query=''; qi.value=''; sync(); renderResults(); qi.focus(); });
+  sync();
+  app.querySelectorAll('[data-q]').forEach(function(b){ b.addEventListener('click',function(){ query=b.getAttribute('data-q'); qi.value=query; sync(); renderResults(); qi.focus(); }); });
+  renderResults();
+}
+function renderResults(){
+  const box=document.getElementById('results'); let h='';
+  if(query.trim()){
+    const r=search(query);
+    if(r.list.length){
+      h+='<section class="section"><div class="section-head"><h2 class="display">'+(r.list.length===1?'1 risposta':r.list.length+' risposte')+'</h2></div><div class="grid">'+r.list.map(function(g){return cardHtml(g,r.q);}).join('')+'</div></section>';
+    } else {
+      h+='<section class="section"><div class="empty"><p><b>Nessun risultato per «'+esc(query)+'».</b></p><p>Prova con una parola più semplice:</p><div class="chips">'+SUGGEST.map(function(w){return '<button class="chip" type="button" data-s="'+w+'">'+w+'</button>';}).join('')+'</div></div></section>';
+    }
+  } else {
+    SECTIONS.forEach(function(sec){
+      const list=G.filter(function(g){return g.sec===sec.id;});
+      h+='<section class="section" aria-labelledby="t-'+sec.id+'"><div class="section-head"><h2 class="display" id="t-'+sec.id+'">'+sec.title+'</h2></div><div class="grid">'+list.map(function(g){return cardHtml(g,null);}).join('')+'</div></section>';
+    });
+  }
+  box.innerHTML=h;
+  box.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ homeScroll=window.scrollY; location.hash=b.getAttribute('data-go'); }); });
+  box.querySelectorAll('[data-s]').forEach(function(b){ b.addEventListener('click',function(){ query=b.getAttribute('data-s'); const qi=document.getElementById('q'); qi.value=query; document.getElementById('clearq').hidden=false; qi.parentElement.classList.add('has-text'); renderResults(); qi.focus(); }); });
+}
+
+let current=null, pos=0;
+function stepHtml(g,i){
+  const st=g.steps[i], sh=shotFor(g,i);
+  let h='<article class="step fade'+(sh?'':' noimg')+'">';
+  h+='<div class="body"><p class="txt">'+fmt(st.t)+'</p></div>';
+  if(sh) h+='<div class="fig">'+shotHtml(sh,'Schermata della cassa: '+st.t.replace(/[«»]/g,''))+'</div>';
+  h+='</article>';
+  return h;
+}
+function nextGuide(g){ const i=ORDER.indexOf(g); return i>=0 && i<ORDER.length-1 ? ORDER[i+1] : null; }
+const navin=document.getElementById('navin');
+function setNavH(){ document.documentElement.style.setProperty('--navh',navbar.hidden?'0px':navbar.offsetHeight+'px'); }
+window.addEventListener('resize',setNavH);
+if(window.ResizeObserver) new ResizeObserver(setNavH).observe(navbar);
+function renderGuide(){
+  const g=current, tot=g.steps.length, last=(pos===tot-1);
+  document.body.classList.add('guide');
+  app.innerHTML='<div class="gview"><div class="ghead"><button class="back" type="button" id="home">'+icon('left',22)+'Tutte le domande</button>'+
+    '<h1 id="h" tabindex="-1" class="display">'+fmt(g.q)+'</h1></div>'+stepHtml(g,pos)+'</div>';
+  const prev='<button class="nbtn out" type="button" id="prev"'+(pos===0?' disabled':'')+'>'+icon('left',22)+'Indietro</button>';
+  if(!last){
+    navin.className='in';
+    navin.innerHTML=prev+'<button class="nbtn main" type="button" id="next">Avanti<span class="ic">'+icon('right',20)+'</span></button>';
+  } else {
+    const nx=nextGuide(g);
+    navin.className='in last';
+    navin.innerHTML='<div class="grp">'+prev+'<button class="nbtn out" type="button" id="gohome">Torna alla home</button></div>'+
+      (nx?'<button class="nbtn main" type="button" id="gonext"><span><span class="t1">Vai alla prossima voce</span><span class="t2">'+esc(nx.q)+'</span></span><span class="ic">'+icon('right',20)+'</span></button>':'');
+    document.getElementById('gohome').addEventListener('click',goHome);
+    const gn=document.getElementById('gonext'); if(gn) gn.addEventListener('click',function(){ location.hash=nx.id; });
+  }
+  navbar.hidden=false;
+  const p=document.getElementById('prev'); if(p) p.addEventListener('click',function(){move(-1);});
+  const n=document.getElementById('next'); if(n) n.addEventListener('click',function(){move(1);});
+  document.getElementById('home').addEventListener('click',goHome);
+  setNavH();
+  layoutShots();
+  const fg=app.querySelector('.fig'); if(fg&&window.ResizeObserver) new ResizeObserver(function(){ layoutShots(); }).observe(fg);
+}
+function move(delta){
+  if(!current) return;
+  const tot=current.steps.length, np=Math.max(0,Math.min(tot-1,pos+delta));
+  if(np===pos) return;
+  pos=np; renderGuide();
+}
+document.addEventListener('keydown',function(e){
+  if(!current) return;
+  const tag=(e.target&&e.target.tagName)||''; if(tag==='INPUT') return;
+  if(e.key==='ArrowRight'){e.preventDefault();move(1);} else if(e.key==='ArrowLeft'){e.preventDefault();move(-1);}
+});
+function goHome(){ if(location.hash){ history.pushState('',document.title,location.pathname+location.search); } route(); }
+function route(){
+  const id=(location.hash||'').replace('#','');
+  const g=G.find(function(x){return x.id===id;});
+  if(g){ current=g; pos=0; renderGuide(); window.scrollTo(0,0); const h=document.getElementById('h'); if(h) h.focus({preventScroll:true}); }
+  else { renderHome(); window.scrollTo(0,homeScroll); }
+}
+window.addEventListener('hashchange',route);
+window.addEventListener('popstate',route);
+route();
+})();
+</script>
+
+</body></html>
